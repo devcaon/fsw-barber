@@ -1,7 +1,7 @@
-import { Button } from "./_components/ui/button";
+import Header from "./_components/Header";
 
 export default function Home() {
   return (
-    <Button>Andressa Braga</Button>
+    <Header />
   );
 }
