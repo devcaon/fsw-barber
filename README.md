@@ -1,10 +1,11 @@
 # FSW 5 - Aula 0
 
 -   [x] Setup do banco
--   [] Seeding do banco (popular banco)
--   [] Introdução ao Next JS
+-   [x] Seeding do banco (popular banco)
+-   [x] Introdução ao Next JS
 -   [] TailwindCSS e Shadcn
 -   [] Git Hooks
+-   Time 43:42
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
