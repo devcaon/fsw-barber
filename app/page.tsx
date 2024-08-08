@@ -7,8 +7,15 @@ import { Card, CardContent, CardTitle } from "./_components/ui/card";
 import { Badge } from "./_components/ui/badge";
 import { Avatar, AvatarFallback } from "./_components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
+import { db } from "./_lib/prisma";
+import BarbershopItem from "./_components/Barbershop-item";
 
-export default function Home() {
+export default async function Home() {
+
+  // chamar banco de dados
+
+  const barbershops = await db.barbershop.findMany({})
+
   return (
     <div className="">
       <Header />
@@ -29,10 +36,10 @@ export default function Home() {
           <Image src='/banner_01.png' alt="Agende nos melhores com FSW Barber" className="object-cover  rounded-lg" fill />
         </div>
 
-        <h3 className="pt-6 uppercase">Agendamentos</h3>
+        <h2 className="pt-6 mb-3 uppercase text-xs text-gray-400 font-bold">Agendamentos</h2>
 
         {/* Agendamento */}
-        <Card className="mt-6">
+        <Card>
           <CardContent className="flex justify-between p-0">
             {/* esquerda */}
             <div className="flex flex-col gap-2 py-5 pl-5">
@@ -56,6 +63,18 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Recomendados */}
+        <h2 className="pt-6 mb-3 uppercase text-xs text-gray-400 font-bold">
+          Recomendados
+        </h2>
+
+        <div className="flex gap-2 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) =>
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          )}
+        </div>
+
       </div>
     </div>
   );
