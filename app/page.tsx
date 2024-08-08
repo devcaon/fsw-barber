@@ -1,4 +1,4 @@
-import { SearchIcon } from "lucide-react";
+import { EyeIcon, FacebookIcon, Footprints, GithubIcon, InstagramIcon, LinkedinIcon, LucideLinkedin, SearchIcon, YoutubeIcon } from "lucide-react";
 import Header from "./_components/Header";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
@@ -15,6 +15,11 @@ export default async function Home() {
   // chamar banco de dados
 
   const barbershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: 'desc'
+    }
+  })
 
   return (
     <div className="">
@@ -31,14 +36,48 @@ export default async function Home() {
           </Button>
         </div>
 
+        {/* busca rápida */}
+        <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+
+          <Button className="gap-2" variant='secondary'>
+            <Image src='/cabelo.svg' alt="cabelo" width={16} height={16} />
+            <p>Cabelo</p>
+          </Button>
+
+          <Button className="gap-2" variant='secondary'>
+            <Image src='/barba.svg' alt="barba" width={16} height={16} />
+            <p>Barba</p>
+          </Button>
+
+          <Button className="gap-2" variant='secondary'>
+            <Image src='/acabamento.svg' alt="acabamento" width={16} height={16} />
+            <p>Acabamento</p>
+          </Button>
+
+          <Button className="gap-2" variant='secondary'>
+            <EyeIcon size={16} />
+            <p>Sobrançelhas</p>
+          </Button>
+
+          <Button className="gap-2" variant='secondary'>
+            <Footprints size={16} />
+            <p>Pézinho</p>
+          </Button>
+
+          <Button className="gap-2" variant='secondary'>
+            <Image src='/acabamento.svg' alt="acabamento" width={16} height={16} />
+            <p>Acabamento</p>
+          </Button>
+        </div>
+
         {/* banner */}
         <div className="relative w-full h-[160px] mt-6">
           <Image src='/banner_01.png' alt="Agende nos melhores com FSW Barber" className="object-cover  rounded-lg" fill />
         </div>
 
+        {/* Agendamento */}
         <h2 className="pt-6 mb-3 uppercase text-xs text-gray-400 font-bold">Agendamentos</h2>
 
-        {/* Agendamento */}
         <Card>
           <CardContent className="flex justify-between p-0">
             {/* esquerda */}
@@ -75,7 +114,33 @@ export default async function Home() {
           )}
         </div>
 
+        {/* Populares */}
+        <h2 className="pt-6 mb-3 uppercase text-xs text-gray-400 font-bold">
+          Populares
+        </h2>
+
+        <div className="flex gap-2 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarbershops.map((barbershop) =>
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          )}
+        </div>
       </div>
+
+      {/* footer */}
+      <footer>
+        <Card >
+          <CardContent className="flex justify-between py-5 px-5  text-gray-400">
+            <p className="text-sm">&copy; 2023 Copyright <span className="font-black">FSW Barber</span></p>
+            <div className="flex items-center gap-2">
+              <FacebookIcon size={18} />
+              <InstagramIcon size={18} />
+              <YoutubeIcon size={26} />
+              <LinkedinIcon size={18} />
+            </div>
+          </CardContent>
+        </Card>
+      </footer>
+
     </div>
   );
 }
