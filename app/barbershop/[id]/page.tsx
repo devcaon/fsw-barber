@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
+import ServiceItem from '../../_components/Service-item';
 
 interface BarbershopPageProps {
   params: {
@@ -18,10 +19,15 @@ const BarberShopPage = async ({ params }: any) => {
   const barbershop = await db.barbershop.findUnique({
     where: {
       id: params.id
+    },
+    include: {
+      services: true
     }
   })
 
   if (!barbershop) return notFound()
+
+  console.log(barbershop.services)
 
   return (
     <div>
@@ -55,10 +61,18 @@ const BarberShopPage = async ({ params }: any) => {
         </div>
       </div>
 
-      {/* Descrimção */}
+      {/* Descrição */}
       <div className='p-5 border-b border-solid space-y-3'>
-        <h2 className='text-xl font-bold uppercase  text-gray-400'>Sobre nós</h2>
+        <h2 className='text-xs font-bold uppercase text-gray-400'>Sobre nós</h2>
         <p className='text-sm text-justify'>{barbershop?.description}</p>
+      </div>
+
+      {/* SERVIÇOS */}
+      <div className="p-5 border-b border-solid space-y-3">
+        <h2 className='text-xs font-bold uppercase text-gray-400'>Serviços</h2>
+        {barbershop.services.map(service => (
+          <ServiceItem key={service.id} service={service} />
+        ))}
       </div>
     </div>
 
