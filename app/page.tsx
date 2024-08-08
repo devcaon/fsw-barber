@@ -1,14 +1,14 @@
-import { EyeIcon, FacebookIcon, Footprints, GithubIcon, InstagramIcon, LinkedinIcon, LucideLinkedin, SearchIcon, YoutubeIcon } from "lucide-react";
+import { FacebookIcon, InstagramIcon, LinkedinIcon, SearchIcon, YoutubeIcon } from "lucide-react";
 import Header from "./_components/Header";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
 import Image from "next/image";
-import { Card, CardContent, CardTitle } from "./_components/ui/card";
-import { Badge } from "./_components/ui/badge";
-import { Avatar, AvatarFallback } from "./_components/ui/avatar";
-import { AvatarImage } from "@radix-ui/react-avatar";
+import { Card, CardContent } from "./_components/ui/card";
 import { db } from "./_lib/prisma";
 import BarbershopItem from "./_components/Barbershop-item";
+import { quickSearchOptions } from "./_constants/search";
+import BookingItem from "./_components/Booking-item";
+
 
 export default async function Home() {
 
@@ -38,70 +38,21 @@ export default async function Home() {
 
         {/* busca rápida */}
         <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
-
-          <Button className="gap-2" variant='secondary'>
-            <Image src='/cabelo.svg' alt="cabelo" width={16} height={16} />
-            <p>Cabelo</p>
-          </Button>
-
-          <Button className="gap-2" variant='secondary'>
-            <Image src='/barba.svg' alt="barba" width={16} height={16} />
-            <p>Barba</p>
-          </Button>
-
-          <Button className="gap-2" variant='secondary'>
-            <Image src='/acabamento.svg' alt="acabamento" width={16} height={16} />
-            <p>Acabamento</p>
-          </Button>
-
-          <Button className="gap-2" variant='secondary'>
-            <EyeIcon size={16} />
-            <p>Sobrançelhas</p>
-          </Button>
-
-          <Button className="gap-2" variant='secondary'>
-            <Footprints size={16} />
-            <p>Pézinho</p>
-          </Button>
-
-          <Button className="gap-2" variant='secondary'>
-            <Image src='/acabamento.svg' alt="acabamento" width={16} height={16} />
-            <p>Acabamento</p>
-          </Button>
+          {quickSearchOptions.map(option => (
+            <Button key={option.title} className="gap-2" variant='secondary'>
+              <Image src={option.imageUrl} alt={option.title} width={16} height={16} />
+              <p>{option.title}</p>
+            </Button>
+          ))}
         </div>
 
         {/* banner */}
-        <div className="relative w-full h-[160px] mt-6">
+        <div className="relative w-full h-[150px] mt-6">
           <Image src='/banner_01.png' alt="Agende nos melhores com FSW Barber" className="object-cover  rounded-lg" fill />
         </div>
 
         {/* Agendamento */}
-        <h2 className="pt-6 mb-3 uppercase text-xs text-gray-400 font-bold">Agendamentos</h2>
-
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            {/* esquerda */}
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <p className="text-sm">Vintage Barber</p>
-              </div>
-            </div>
-
-            {/* direita */}
-            <div className="flex flex-col items-center justify-center gap-1 border-l-2 border-solid px-8">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20:00</p>
-            </div>
-          </CardContent>
-        </Card>
+        <BookingItem />
 
         {/* Recomendados */}
         <h2 className="pt-6 mb-3 uppercase text-xs text-gray-400 font-bold">
