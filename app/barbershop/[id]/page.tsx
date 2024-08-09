@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 import ServiceItem from '../../_components/Service-item';
+import PhoneItem from '@/app/_components/Phone-item'
+import Footer from '@/app/_components/Footer'
 
 interface BarbershopPageProps {
   params: {
@@ -27,7 +29,6 @@ const BarberShopPage = async ({ params }: any) => {
 
   if (!barbershop) return notFound()
 
-  console.log(barbershop.services)
 
   return (
     <div>
@@ -74,6 +75,19 @@ const BarberShopPage = async ({ params }: any) => {
           <ServiceItem key={service.id} service={service} />
         ))}
       </div>
+
+      {/* contato */}
+      <div className="p-5 border-b border-solid space-y-3">
+        <h2 className='text-xs font-bold uppercase text-gray-400'>
+          Contato
+        </h2>
+
+        {barbershop.phones.map((phone) => (
+          <PhoneItem phone={phone} key={phone} />
+        ))}
+
+      </div>
+
     </div>
 
   )

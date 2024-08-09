@@ -1,13 +1,13 @@
-import { FacebookIcon, InstagramIcon, LinkedinIcon, SearchIcon, YoutubeIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import Header from "./_components/Header";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
 import Image from "next/image";
-import { Card, CardContent } from "./_components/ui/card";
 import { db } from "./_lib/prisma";
 import BarbershopItem from "./_components/Barbershop-item";
 import { quickSearchOptions } from "./_constants/search";
 import BookingItem from "./_components/Booking-item";
+import Footer from "./_components/Footer";
 
 
 export default async function Home() {
@@ -76,21 +76,6 @@ export default async function Home() {
           )}
         </div>
       </div>
-
-      {/* footer */}
-      <footer>
-        <Card >
-          <CardContent className="flex justify-between py-5 px-5  text-gray-400">
-            <p className="text-sm">&copy; 2023 Copyright <span className="font-black">FSW Barber</span></p>
-            <div className="flex items-center gap-2">
-              <FacebookIcon size={18} />
-              <InstagramIcon size={18} />
-              <YoutubeIcon size={26} />
-              <LinkedinIcon size={18} />
-            </div>
-          </CardContent>
-        </Card>
-      </footer>
 
     </div>
   );
